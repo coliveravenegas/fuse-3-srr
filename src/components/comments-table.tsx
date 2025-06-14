@@ -30,15 +30,21 @@ export function CommentsTable({ comments }: { comments: Comment[] }) {
     },
   ];
 
-  if(comments.length===0) return null;
+  if (comments.length === 0) return null;
 
   return (
-    <Table<Comment>
+    <Table
       isEdit={false}
       name="Comments"
       data={comments}
       columns={columns}
       layout="horizontal"
+      onChangeMode={() => { }}
+      cellProps={{
+        onChange: () => { },
+        onBlur: () => { },
+        name: "Comments",
+      }}
     />
   );
 }

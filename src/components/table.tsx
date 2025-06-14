@@ -33,6 +33,7 @@ export function Table<T>({
   layout = "horizontal",
 }: TableProps<T>) {
   const [isEditing, setIsEditing] = useState(false);
+  console.log({ row: data })
 
   if (layout === "vertical") {
     const row = data[0];

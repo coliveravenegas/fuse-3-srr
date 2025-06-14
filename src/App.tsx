@@ -4,11 +4,11 @@ import { PostIdPicker } from "./components/PostIdPicker";
 import { CommentsTable } from "./components/comments-table";
 import { PostDetailTable } from "./components/post-detail-table";
 import { getPostById, getUserById, getCommentsByPostId } from "./api";
-import { type Comment, type User } from "./types";
+import { type Comment, type PostDetail } from "./types";
 
 function App() {
-  const [postId, setPostId] = useState<string | null>();
-  const [postDetail, setPostDetail] = useState();
+  const [postId, setPostId] = useState<string | null>(null);
+  const [postDetail, setPostDetail] = useState<PostDetail | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -22,13 +22,12 @@ function App() {
       const { data: user } = await getUserById(post.userId)();
       const { data: comments } = await getCommentsByPostId(post.id)();
 
-      const postDetail = {
+      const postDetail: PostDetail = {
         ...post,
         user,
         comments,
       };
 
-      console.log({ postDetail });
 
       setPostDetail(postDetail);
       setComments(comments ?? []);
@@ -55,7 +54,7 @@ function App() {
           ) : (
             <>
               <PostDetailTable postDetail={postDetail} />
-              {/* {comments.length && <CommentsTable comments={comments} />} */}
+              <CommentsTable comments={comments} />
             </>
           )}
         </section>

@@ -1,8 +1,8 @@
 import { type Column, Table } from "./table";
-import { type Post } from "../types";
+import { PostDetail, type Post } from "../types";
 
 interface PostDetailTableProps {
-  postDetail: any;
+  postDetail: PostDetail | null;
 }
 
 export function PostDetailTable({ postDetail }: PostDetailTableProps) {
@@ -24,13 +24,22 @@ export function PostDetailTable({ postDetail }: PostDetailTableProps) {
     },
   ];
 
+  if (!postDetail) return null;
+
   return (
     <Table<Post>
       isEdit
       name="Post"
+      isLoading={false}
       data={[postDetail]}
       columns={columns}
       layout="vertical"
+      onChangeMode={() => { }}
+      cellProps={{
+        onChange: () => { },
+        onBlur: () => { },
+        name: "Post",
+      }}
     />
   );
 }
